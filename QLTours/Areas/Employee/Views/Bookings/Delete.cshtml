@@ -1,0 +1,46 @@
+﻿@model QLTours.Models.Booking
+
+@{
+    ViewData["Title"] = "Xóa Booking";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title text-center">Xác Nhận Xóa Booking</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-center text-danger fw-bold">Bạn có chắc chắn muốn xóa booking này?</p>
+
+            <dl class="row">
+                <dt class="col-sm-3">Tổng Tiền</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Total) VND</dd>
+
+                <dt class="col-sm-3">Ngày Đặt</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.BookingDate)</dd>
+
+                <dt class="col-sm-3">Trạng Thái</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Status)</dd>
+
+                <dt class="col-sm-3">Tour</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Tour.TourName)</dd>
+
+                <dt class="col-sm-3">Người Dùng</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Username)</dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                <form asp-action="Delete" method="post" class="d-inline">
+                    <input type="hidden" asp-for="BookingId" />
+                    <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Bạn có chắc chắn muốn xóa booking này không?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> Quay Lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

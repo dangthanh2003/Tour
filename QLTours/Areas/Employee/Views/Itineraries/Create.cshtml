@@ -1,0 +1,86 @@
+﻿@model QLTours.Models.Itinerary
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Tạo Itinerary</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- TourId -->
+                <div class="form-floating mb-3">
+                    <select asp-for="TourId" class="form-control" asp-items="ViewBag.TourId"></select>
+                    <label asp-for="TourId">Tour</label>
+                    <span asp-validation-for="TourId" class="text-danger"></span>
+                </div>
+
+                <!-- Ngay -->
+                <!-- Ngay -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Ngay" type="date" class="form-control" />
+                    <label asp-for="Ngay">Ngày</label>
+                    <span asp-validation-for="Ngay" class="text-danger"></span>
+                </div>
+
+
+                <!-- ChiTietLichTrinh -->
+                <div class="form-floating mb-3">
+                    <input asp-for="ChiTietLichTrinh" class="form-control" />
+                    <label asp-for="ChiTietLichTrinh">Chi Tiết Lịch Trình</label>
+                    <span asp-validation-for="ChiTietLichTrinh" class="text-danger"></span>
+                </div>
+
+                <!-- Upload Multiple Images -->
+                <div id="imageUploadContainer">
+                    <div class="form-group mb-3">
+                        <label for="Images" class="control-label">Upload Images</label>
+                        <input type="file" name="Images" class="form-control" multiple />
+                    </div>
+                </div>
+
+                <!-- Add Image Button -->
+                <div class="mb-3 text-end">
+                    <button type="button" id="addImageButton" class="btn btn-outline-secondary">
+                        <i class="bi bi-plus-circle"></i> Thêm ảnh
+                    </button>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle"></i> Tạo
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Logic to dynamically add image upload fields
+        document.getElementById('addImageButton').addEventListener('click', function () {
+            const container = document.getElementById('imageUploadContainer');
+            const newImageInput = document.createElement('div');
+            newImageInput.className = 'form-group mb-3';
+            newImageInput.innerHTML = `
+                        <label for="Images" class="control-label">Upload Images</label>
+                        <input type="file" name="Images" class="form-control" multiple />
+                    `;
+            container.appendChild(newImageInput);
+        });
+    </script>
+}

@@ -1,0 +1,405 @@
+﻿@model QLTours.Models.Tour
+<style>
+    .product_image_area {
+        background-color: #f9f9f9;
+        padding: 50px 0;
+        margin-top: 50px;
+    }
+
+    .s_product_img img {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 65px;
+    }
+
+    .s_product_text {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .s_product_text h3 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .s_product_text h2 {
+            font-size: 24px;
+            color: #00D8FF;
+            margin-bottom: 20px;
+        }
+
+        .s_product_text .list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .s_product_text .list li {
+                margin-bottom: 10px;
+            }
+
+            .s_product_text .list a {
+                color: #333;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+            }
+
+                .s_product_text .list a:hover {
+                    color: #00D8FF;
+                }
+
+                .s_product_text .list a span {
+                    font-weight: bold;
+                    margin-right: 5px;
+                }
+
+        .s_product_text p {
+            margin: 20px 0;
+            line-height: 1.6;
+            color: #555;
+        }
+
+    .main_btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #00D8FF;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .main_btn:hover {
+            display: inline-block;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #00d8d5;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+    .rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+    .yellow-star {
+        color: #f8ce0b; /* Màu sắc mong muốn cho ngôi sao */
+    }
+
+    .rating input {
+        display: none;
+    }
+
+    .rating label {
+        font-size: 24px;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .rating input:checked ~ label {
+        color: #f8ce0b;
+    }
+
+    .star {
+        color: #f8ce0b;
+    }
+
+    .itinerary-timeline {
+        position: relative;
+    }
+
+    .itinerary-detail {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .timeline-dot {
+        width: 12px;
+        height: 12px;
+        background-color: #c75877;
+        border-radius: 50%;
+        margin-right: 15px;
+        z-index: 1;
+    }
+
+    .timeline-content {
+        padding: 10px;
+        border: 1px solid #c75877;
+        border-radius: 5px;
+        background-color: #fff;
+        position: relative;
+    }
+
+        .timeline-content h4 {
+            color: #c75877;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content p {
+            margin: 5px 0;
+        }
+
+    .itinerary-detail::before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: calc(100% + 20px);
+        background-color: #c75877;
+        left: 5px;
+        top: -10px;
+        z-index: 0;
+    }
+
+    .itinerary-images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .itinerary-image {
+        flex: 1 1 calc(33.333% - 10px);
+        max-width: calc(33.333% - 10px);
+        box-sizing: border-box;
+    }
+
+        .itinerary-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+</style>
+<div class="product_image_area" style="padding-top:0;margin-top:50px">
+    <div class="container">
+        <div class="row s_product_inner">
+            <div class="col-lg-6">
+                <div class="s_product_img">
+                    <!-- Thay đổi đường dẫn hình ảnh tùy thuộc vào cách bạn lưu trữ hình ảnh trong ứng dụng -->
+                    <img style="width:100%" src="/images/@Model.Img" alt="Tour Image">
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="s_product_text">
+                    <h3>@Model.TourName</h3>
+                    <h2>$@Model.Price</h2>
+                    <ul class="list">
+                        <li>
+                            @*                             <a href="#"> <span>Danh mục</span> : @Model.Category.CategoryName</a>
+                            *@                            <!-- Thay đổi tên thuộc tính CategoryName tùy thuộc vào thiết kế của lớp Category -->
+                        </li>
+                        @* <li>
+                        <a href="#"> <span>Quantity</span> : @Model.Quantity</a>
+                        </li>*@
+                        <li>
+                            <a href="#"><i class="fa-solid fa-calendar-days"></i> <span>Ngày bắt đầu</span> : @Model.StartDate.ToString("dd/MM/yyyy")</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-calendar-days"></i> <span>Ngày kết thúc</span> : @Model.EndDate.ToString("dd/MM/yyyy")</a>
+                        </li>
+                        <li>
+                            <a href="#"> <span>Khách sạn</span> : @Model.TourDetails.FirstOrDefault()?.Hotel?.HotelName</a>
+                        </li>
+                        <li>
+                            <a href="#"> <span>Phương tiện</span> : @Model.TourDetails.FirstOrDefault()?.Vehicle?.VehicleName</a>
+                        </li>
+
+                    </ul>
+
+                    <p>
+                        @Model.Description
+                    </p>
+
+
+                    <form action="@Url.Action("BookTour","Home", new { id = Model.TourId })">
+
+                        <button type="submit" style="padding:0; border:none;border-radius:10px">
+                            <a class="main_btn text-light">Đặt ngay</a>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="itinerary">
+    <div class="itinerary">
+        <div class="container">
+            <h2 class=" text-center text-danger mb-4 fw-bold">Lịch trình</h2>
+
+            @foreach (var itinerary in Model.Itineraries)
+            {
+                <div class="card mb-3">
+                    <!-- Header -->
+                    <div class="card-header text-center">
+                        <h2 class="mb-0 fs-4 fw-bold text-primary">
+                            Ngày @itinerary.Ngay?.ToString("dd/MM/yyyy")
+                        </h2>
+                        <p class="text-muted fs-5 mt-2">
+                            @itinerary.ChiTietLichTrinh
+                        </p>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="card-body">
+                        <h3 class="text-center text-success mb-4 fw-bold">Chi tiết lịch trình</h3>
+
+                        <!-- Timeline -->
+                        <div class="itinerary-timeline">
+                            @foreach (var detail in itinerary.DetailItineraries)
+                            {
+                                <div class="itinerary-detail d-flex align-items-start mb-3">
+                                    <div class="timeline-dot" style="margin-right: 15px;"></div>
+                                    <div class="timeline-content">
+                                        <h4 style="color: #c75877;">@detail.ThoiGian?.ToString(@"hh\:mm")</h4>
+                                        <p style="color: #307a50; font-weight: bold;">@detail.HoatDong</p>
+                                        <p>@detail.MoTa</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Hiển thị hình ảnh của hành trình -->
+                        <div class="itinerary-images">
+                            @foreach (var image in itinerary.ItineraryImages)
+                            {
+                                <div class="itinerary-image">
+                                    <img src="@image.ImagePath" alt="Itinerary Image" class="img-fluid" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+           
+        }
+
+
+
+
+
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="add-review-section">
+                <h2>Đánh giá trung bình: @Html.Raw(GetStarIcons(ViewBag.AverageRating))</h2>
+
+                <form asp-action="AddReview" method="post">
+                    <input type="hidden" asp-for="TourId" />
+                    <div class="rating">
+                        <input type="radio" id="star5" name="Rating" value="5" />
+                        <label for="star5">☆</label>
+                        <input type="radio" id="star4" name="Rating" value="4" />
+                        <label for="star4">☆</label>
+                        <input type="radio" id="star3" name="Rating" value="3" />
+                        <label for="star3">☆</label>
+                        <input type="radio" id="star2" name="Rating" value="2" />
+                        <label for="star2">☆</label>
+                        <input type="radio" id="star1" name="Rating" value="1" />
+                        <label for="star1">☆</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewText">Nhận xét:</label>
+                        <textarea class="form-control" id="reviewText" name="ReviewText" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                </form>
+            </div>
+
+
+
+
+            <div>
+                <div class="review-section">
+
+                    @if (Model.Reviews != null && Model.Reviews.Any())
+                    {
+                        @foreach (var review in Model.Reviews)
+                        {
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h3 class="mb-0">@review.User?.Username</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p class="star"> @GenerateStarRating((double)(review.Rating ?? 0))</p>
+                                    <p>Nhận xét: @review.ReviewText</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Chưa có đánh giá nào cho tour này.</p>
+                    }
+                </div>
+            </div>
+        </div>
+        @functions {
+            string GetStarIcons(double rating)
+            {
+                string starIcons = "";
+                int numberOfFullStars = (int)rating;
+                for (int i = 0; i < numberOfFullStars; i++)
+                {
+                    starIcons += "<i class='fa fa-star yellow-star'></i>"; // Thêm class yellow-star vào đây
+                }
+
+                double remainder = rating - numberOfFullStars;
+                if (remainder >= 0.5)
+                {
+                    starIcons += "<i class='fa fa-star-half yellow-star'></i>"; // Thêm class yellow-star vào đây
+                }
+
+                return starIcons;
+            }
+        }
+
+        @functions {
+            string GenerateStarRating(double rating)
+            {
+                // Create a string to store the HTML for displaying stars
+                string stars = "";
+
+                // Loop to generate the stars based on the rating
+                for (int i = 0; i < (int)rating; i++)
+                {
+                    stars += "★"; // You can use an image or Unicode character for stars
+                }
+
+                // Check if there's a fraction of a star
+                double remainder = rating - Math.Floor(rating);
+                if (remainder >= 0.5)
+                {
+                    stars += "☆"; // Add half star
+                }
+
+                // Return the generated star string
+                return stars;
+            }
+        }
+
+
+
+
+
+

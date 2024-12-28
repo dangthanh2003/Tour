@@ -1,0 +1,49 @@
+﻿@model QLTours.Models.Contact
+
+@{
+    ViewData["Title"] = "Chi Tiết Liên Hệ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h3 class="card-title mb-0">Chi Tiết Liên Hệ</h3>
+        </div>
+        <div class="card-body">
+            <h4>Thông Tin Liên Hệ</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Tên Người Dùng</dt>
+                <dd class="col-sm-9">@Model.Username</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+
+                <dt class="col-sm-3">Chủ Đề</dt>
+                <dd class="col-sm-9">@Model.Subject</dd>
+
+                <dt class="col-sm-3">Nội Dung</dt>
+                <dd class="col-sm-9">@Model.Message</dd>
+
+                <dt class="col-sm-3">Trạng Thái</dt>
+                <dd class="col-sm-9">
+                    @if (Model.Status == "Đã xem")
+                    {
+                        <span class="badge bg-success">Đã xem</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Chưa xem</span>
+                    }
+                </dd>
+            </dl>
+
+            <div class="text-center">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Quay Lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

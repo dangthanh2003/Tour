@@ -1,0 +1,76 @@
+﻿@model IEnumerable<QLTours.Models.Promotion>
+
+@{
+    ViewData["Title"] = "Danh Sách Mã Khuyến Mãi";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <div class="row g-3">
+        @foreach (var promotion in Model)
+        {
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>Giảm giá:</strong> @promotion.Discount.ToString("0.00")% <br>
+                            <strong>Thời gian:</strong> @promotion.StartDate.ToString("dd/MM/yyyy") - @promotion.EndDate.ToString("dd/MM/yyyy") <br>
+                            <strong>Trạng thái:</strong>
+                            <span class="badge @(promotion.IsActive ? "bg-success" : "bg-danger")">
+                                <i class="bi @(promotion.IsActive ? "bi-check-circle-fill" : "bi-x-circle-fill")"></i>
+                                @(promotion.IsActive ? "Còn hiệu lực" : "Hết hạn")
+                            </span>
+                        </p>
+                        <!-- Mã khuyến mãi và nút Sao chép -->
+                        <div class="mt-3">
+                            <input id="promoCode-@promotion.PromotionId" type="text" class="form-control text-center" readonly value="@promotion.Code">
+                            <button class="btn btn-primary w-100 mt-2" onclick="copyCode('promoCode-@promotion.PromotionId')">
+                                Sao chép mã
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="mt-3">
+    <p class="text-end text-muted">Tổng số khuyến mãi: <strong>@Model.Count()</strong></p>
+</div>
+
+<script>
+    // Hàm JavaScript để sao chép mã khuyến mãi
+    function copyCode(inputId) {
+        var copyText = document.getElementById(inputId);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // Dành cho mobile
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            alert("Đã sao chép mã: " + copyText.value);
+        }).catch(err => {
+            alert("Lỗi khi sao chép mã: " + err);
+        });
+    }
+</script>
+
+<style>
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .badge {
+        font-size: 1rem;
+        padding: 0.4em 0.6em;
+    }
+</style>

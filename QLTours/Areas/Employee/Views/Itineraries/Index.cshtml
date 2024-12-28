@@ -1,0 +1,81 @@
+﻿@model IEnumerable<QLTours.Models.Itinerary>
+
+@{
+    ViewData["Title"] = "Danh Sách Lịch Trình";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Danh Sách Lịch Trình</h3>
+        </div>
+        <div class="card-body">
+            <p>
+                <a class="btn btn-success" asp-action="Create">
+                    <i class="bi bi-plus-circle"></i> Thêm Lịch Trình Mới
+                </a>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.ItineraryId)</th>
+                            <th>@Html.DisplayNameFor(model => model.Ngay)</th>
+                            <th>@Html.DisplayNameFor(model => model.ChiTietLichTrinh)</th>
+                            <th>@Html.DisplayNameFor(model => model.Tour.TourName)</th>
+                            <th class="text-center">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ItineraryId</td> <!-- Mã Lịch Trình -->
+                                <td>@item.Ngay?.ToString("dd/MM/yyyy")</td>
+                                <td>@Html.DisplayFor(modelItem => item.ChiTietLichTrinh)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Tour.TourName)</td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.ItineraryId">
+                                        <i class="bi bi-pencil-square"></i> Sửa
+                                    </a>
+                                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.ItineraryId">
+                                        <i class="bi bi-eye"></i> Chi Tiết
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ItineraryId">
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <!-- Trang trước -->
+                    <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)">«</a>
+                    </li>
+
+                    <!-- Hiển thị các số trang -->
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+
+                    <!-- Trang sau -->
+                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)">»</a>
+                    </li>
+                </ul>
+            </nav>
+            <span>Tổng số lịch trình: @ViewBag.TotalItineraries</span>
+        </div>

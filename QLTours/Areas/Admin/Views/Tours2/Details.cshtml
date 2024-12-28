@@ -1,0 +1,50 @@
+﻿@model QLTours.Models.Tour
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Chi Tiết Tour</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold">Tên Tour:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TourName)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Mô Tả:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Giá:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Price) VND</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Số Lượng:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Quantity)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Ngày Bắt Đầu:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.StartDate)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Ngày Kết Thúc:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.EndDate)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Hình Ảnh:</dt>
+                <dd class="col-sm-9">
+                    <img src="/images/@Model.Img" alt="Tour Image" class="img-fluid rounded" style="max-height: 300px;">
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">Danh Mục:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Category.CategoryName)</dd>
+            </dl>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Edit" asp-route-id="@Model.TourId" class="btn btn-warning">
+                <i class="bi bi-pencil-square"></i> Chỉnh Sửa
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Quay Lại Danh Sách
+            </a>
+        </div>
+    </div>

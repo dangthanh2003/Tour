@@ -1,0 +1,89 @@
+﻿@model IEnumerable<QLTours.Models.Manage>
+
+@{
+    ViewData["Title"] = "Danh Sách Quản Lý";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Danh Sách Quản Lý</h3>
+        </div>
+        <div class="card-body">
+            <p>
+                <a asp-action="Create" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Tạo Quản Lý Mới
+                </a>
+            </p>
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.First().Username)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().Password)</th>
+                        <th>Vai Trò</th>
+                        <th>@Html.DisplayNameFor(model => model.First().Status)</th>
+                        <th class="text-center">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                            <td>@item.Password.Substring(0, Math.Min(10, item.Password.Length))...</td>
+                            <td>
+                                <span class="badge @(item.Role ? "bg-success" : "bg-secondary")">
+                                    @(item.Role ? "Admin" : "Employee")
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge @(item.Status == "Locked" ? "bg-danger" : "bg-primary")">
+                                    @(item.Status)
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.IdMng" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <form asp-action="Unlock" asp-route-id="@item.IdMng" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-warning"
+                                            onclick="return confirm('Bạn có chắc chắn muốn thay đổi trạng thái tài khoản này không?');">
+                                        <i class="bi bi-unlock"></i> @(item.Status == "Locked" ? "Mở Khóa" : "Khóa")
+                                    </button>
+                                </form>
+                                <form asp-action="Delete" asp-route-id="@item.IdMng" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <!-- Thanh phân trang -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(ViewBag.CurrentPage <= 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)">Trước</a>
+                    </li>
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)">Tiếp</a>
+                    </li>
+                </ul>
+            </nav>
+            <p class="mt-2">Tổng số: <b>@ViewBag.TotalManages</b> tài khoản</p>
+        </div>
+    </div>
+</div>

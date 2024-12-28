@@ -1,0 +1,187 @@
+﻿
+@{
+    var successMessage = ViewBag.Message as string;
+    var errorMessage = ViewBag.ErrorMessage as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
+<section class="contact-section">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <div class="container">
+        <div class="row">
+            <!-- Thông tin liên hệ -->
+            <div class="col-lg-5 contact-info">
+                <h1>Liên hệ ngay</h1>
+                <p2>Chúng tôi rất mong nhận được phản hồi từ bạn! Hãy thoải mái liên hệ để được giải đáp thắc mắc hoặc hỗ trợ.</p2>
+
+                <!-- Địa chỉ văn phòng -->
+                <div class="icon-box">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <div>
+                        <h2>Office</h2>
+                        <p3>3/1 Đa Kao,Quận 1,TPHCM</p3>
+                    </div>
+                </div>
+
+                <!-- Số điện thoại -->
+                <div class="icon-box">
+                    <i class="bi bi-phone-fill"></i>
+                    <div>
+                        <h2>Mobile</h2>
+                        <p3>+0988672892</p3>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="icon-box">
+                    <i class="bi bi-envelope-fill"></i>
+                    <div>
+                        <h2>Email</h2>
+                        <p3>voquocthang107@gamil.com</p3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bản đồ và mẫu liên hệ -->
+            <div class="col-lg-7">
+                <div class="mb-4">
+                    <!-- Cập nhật iframe Google Maps -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2562153498743!2d106.70234607451745!3d10.791678058913272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b462ec0001%3A0x10e90f914b037c35!2zMyDEkC4gSG_DoG5nIFNhLCDEkGEgS2FvLCBRdeG6rW4gMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1712586786547!5m2!1svi!2s" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <form asp-action="SendMessage" asp-controller="Home" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <input type="text" class="form-control" name="username" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control mb-3" name="subject" placeholder="Subject" required>
+                    <textarea class="form-control mb-3" name="messageContent" rows="5" placeholder="Message" required></textarea>
+                    <button type="submit" class="btn btn-custom">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+/* Contact section styling */
+.contact-section {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+
+/* Contact info */
+.contact-info {
+    padding-right: 30px;
+}
+
+.contact-info h1 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.contact-info p2 {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    display: block;
+    margin-bottom: 30px;
+}
+
+/* Icon box styling */
+.icon-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.icon-box i {
+    font-size: 2.5rem; /* Tăng kích thước icon */
+    color: #007bff;
+    margin-right: 20px;
+}
+
+.icon-box h2 {
+    font-size: 1.5rem; /* Điều chỉnh kích thước tiêu đề */
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.icon-box p3 {
+    font-size: 1.1rem; /* Điều chỉnh kích thước nội dung */
+    color: #555;
+    margin: 0;
+}
+
+/* Google Map iframe */
+.contact-section iframe {
+    border-radius: 8px;
+}
+
+/* Form styling */
+form input, form textarea {
+    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+form input:focus, form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    transition: background-color 0.3s;
+}
+
+/* Responsive adjustments */
+ (max-width: 768px) {
+    .contact-info {
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .icon-box {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .icon-box i {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+</style>
+

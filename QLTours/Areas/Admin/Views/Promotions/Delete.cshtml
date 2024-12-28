@@ -1,0 +1,54 @@
+﻿@model QLTours.Models.Promotion
+
+@{
+    ViewData["Title"] = "Xóa Khuyến Mãi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title mb-0">Xóa Khuyến Mãi</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="text-danger">Bạn chắc chắn muốn xóa khuyến mãi này?</h5>
+
+            <div class="mb-3">
+                <label class="form-label">Mã Khuyến Mãi</label>
+                <p>@Model.Code</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phần Trăm Giảm Giá</label>
+                <p>@Model.Discount %</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Ngày Bắt Đầu</label>
+                <p>@Model.StartDate.ToString("dd/MM/yyyy")</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Ngày Kết Thúc</label>
+                <p>@Model.EndDate.ToString("dd/MM/yyyy")</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Trạng Thái</label>
+                <p>@(Model.IsActive ? "Hoạt Động" : "Không Hoạt Động")</p>
+            </div>
+
+            <div class="text-center mt-4">
+                <form asp-action="Delete" method="post" class="d-inline">
+                    <input type="hidden" asp-for="PromotionId" />
+                    <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </form>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Quay Lại Danh Sách
+                    </a>
+            </div>
+        </div>
+    </div>
+</div>

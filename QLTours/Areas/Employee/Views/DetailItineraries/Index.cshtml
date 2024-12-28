@@ -1,0 +1,96 @@
+﻿@model IEnumerable<QLTours.Models.DetailItinerary>
+
+@{
+    ViewData["Title"] = "Danh Sách Lịch Trình Chi Tiết";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Danh Sách Lịch Trình Chi Tiết</h3>
+        </div>
+        <div class="card-body">
+            <p>
+                <a class="btn btn-success" asp-action="Create">
+                    <i class="bi bi-plus-circle"></i> Thêm Lịch Trình Mới
+                </a>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.ThoiGian)</th>
+                            <th>@Html.DisplayNameFor(model => model.HoatDong)</th>
+                            <th>@Html.DisplayNameFor(model => model.MoTa)</th>
+                            <th>@Html.DisplayNameFor(model => model.Itinerary)</th>
+                            <th class="text-center">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.ThoiGian)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HoatDong)</td>
+                                <td>
+                                    @{
+                                        string mota = item.MoTa;
+                                        string[] word = mota.Split(' ');
+                                        if (word.Length > 10)
+                                        {
+                                            mota = string.Join(" ", word.Take(10)) + "...";
+                                        }
+                                    }
+                                    @mota
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Itinerary.ItineraryId)</td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.DetailId">
+                                        <i class="bi bi-pencil-square"></i> Sửa
+                                    </a> |
+                                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.DetailId">
+                                        <i class="bi bi-eye"></i> Chi Tiết
+                                    </a> |
+                                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.DetailId" >
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <!-- Hiển thị tổng số lịch trình -->
+            <p>Tổng số lịch trình chi tiết: @ViewBag.TotalItems</p>
+
+            <!-- Hiển thị thanh phân trang -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <!-- Nút trang trước -->
+                    <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)">«</a>
+                    </li>
+
+                    <!-- Hiển thị các số trang -->
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+
+                    <!-- Nút trang sau -->
+                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)">»</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>

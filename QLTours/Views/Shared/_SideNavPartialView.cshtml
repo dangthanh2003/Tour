@@ -1,0 +1,204 @@
+﻿<style>
+    /* Sidebar */
+    .side-nav {
+        background-color: #fff; /* Màu nền sidebar */
+        color: #333; /* Màu chữ đen cho dễ đọc */
+        width: 250px; /* Chiều rộng của sidebar */
+        padding: 20px 0;
+    }
+
+    /* Menu Item */
+    .side-nav-menu .nav-item a {
+        display: flex;
+        align-items: center;
+        color: #333; /* Màu chữ item */
+        text-decoration: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 4px; /* Bo tròn các góc */
+        margin-bottom: 5px; /* Khoảng cách giữa các menu item */
+    }
+
+    /* Biểu tượng */
+    .side-nav-menu .nav-item .icon-holder {
+        margin-right: 10px;
+        font-size: 18px;
+        display: inline-block;
+    }
+
+    /* Hiệu ứng hover trên menu */
+    .side-nav-menu .nav-item a:hover {
+        background-color: #3a3fbd; /* Màu nền khi hover */
+        color: #fff; /* Màu chữ khi hover */
+    }
+
+    /* Thay đổi màu chữ khi nhấn vào menu item */
+    .side-nav-menu .nav-item a.active {
+        color: #3498db; /* Màu chữ khi nhấn */
+        background-color: #f5f5f5; /* Màu nền khi nhấn */
+    }
+
+    /* Dropdown menu */
+    .side-nav-menu .nav-item .dropdown-menu {
+        background-color: #f5f5f5; /* Màu nền của dropdown */
+        padding-left: 20px;
+        border-radius: 4px;
+        display: none;
+    }
+
+    /* Hiển thị dropdown khi hover */
+    .side-nav-menu .nav-item:hover .dropdown-menu {
+        display: block;
+    }
+
+    /* Các mục trong dropdown */
+    .side-nav-menu .nav-item .dropdown-menu li a {
+        color: #333;
+        padding: 10px 20px;
+        text-decoration: none;
+    }
+
+    /* Hiệu ứng hover trên các mục trong dropdown */
+    .side-nav-menu .dropdown-menu li a:hover {
+        background-color: #3498db; /* Màu nền khi hover trong dropdown */
+        color: #red; /* Màu chữ khi hover trong dropdown */
+    }
+
+
+
+</style>
+<div class="side-nav ">
+    <div class="side-nav-inner">
+        <ul class="side-nav-menu scrollable">
+            <li class="nav-item ">
+                <a class="dropdown-toggle"   asp-controller="#" asp-action="Index">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-dashboard"></i>
+                    </span>
+                    <span class="title ">Dashboard</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+               
+            </li>
+            
+           
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-hdd"></i>
+                    </span>
+                    <span class="title">Danh Mục Quản Lý</span>
+
+                    <p class="arrow" style="top:12px">
+                        <i class="arrow-icon"></i>
+                    </p>
+                </a>
+                <div class="side-nav">
+                    <div class="side-nav-inner">
+                        <ul class="side-nav-menu scrollable">
+                            <!-- Dashboard -->
+                            <li class="nav-item">
+                                <a class="dropdown-toggle" asp-controller="Home" asp-action="Index">
+                                    <span class="icon-holder">
+                                        <i class="anticon anticon-dashboard"></i>
+                                    </span>
+                                    <span class="title">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <!-- Danh Mục Quản Lý (Dropdown) -->
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" href="javascript:void(0);">
+                                    <span class="icon-holder">
+                                        <i class="anticon anticon-hdd"></i>
+                                    </span>
+                                    <span class="title">Danh Mục Quản Lý</span>
+                                    <span class="arrow">
+                                        <i class="arrow-icon"></i>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-controller="Tours" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="anticon anticon-appstore"></i>
+                                            </span>
+                                            Quản lý Tour
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="TourDetails" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="anticon anticon-appstore"></i>
+                                            </span>
+                                            Quản lý Chi tiết Tour
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Bookings" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="anticon anticon-book"></i>
+                                            </span>
+                                            Quản lý Booking
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Categories" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="anticon anticon-appstore"></i>
+                                            </span>
+                                            Quản lý Danh Mục
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Vehicles" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="anticon anticon-car"></i>
+                                            </span>
+                                            Quản lý Phương tiện
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Hotels" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="fas fa-hotel"></i>
+                                            </span>
+                                            Quản lý Khách sạn
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Itineraries" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="anticon anticon-calendar"></i>
+                                            </span>
+                                            Quản lý Lịch trình
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="ItineraryImages" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="anticon anticon-picture"></i>
+                                            </span>
+                                            Quản lý ảnh lịch trình
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="DetailItineraries" asp-action="Index">
+                                            <span class="icon-holder">
+                                                <i class="fas fa-map-signs"></i>
+                                            </span>
+                                            Quản lý Chi tiết lịch trình
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            
+                        </ul>
+                    </div>
+                </div>
+
+    </div>
+</div>

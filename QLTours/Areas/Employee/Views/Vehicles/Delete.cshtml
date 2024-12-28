@@ -1,0 +1,43 @@
+﻿@model QLTours.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Xóa Phương Tiện";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title text-center">Xác Nhận Xóa Phương Tiện</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-center text-danger fw-bold">Bạn có chắc chắn muốn xóa phương tiện này?</p>
+
+            <dl class="row">
+                <dt class="col-sm-3">Tên Phương Tiện</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.VehicleName)</dd>
+
+                <dt class="col-sm-3">Mô Tả</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                <form asp-action="Delete" method="post" class="d-inline">
+                    <input type="hidden" asp-for="VehicleId" />
+                    <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Bạn có chắc chắn muốn xóa phương tiện này không?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> Quay Lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

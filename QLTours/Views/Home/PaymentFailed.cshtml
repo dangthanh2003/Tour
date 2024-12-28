@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán thất bại";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Giả sử bạn có layout chung
+}
+
+<div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Thanh toán thất bại!</h4>
+        <p>Xin lỗi, thanh toán của bạn không thành công. Vui lòng thử lại sau.</p>
+    </div>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về Trang chủ</a>
+</div>

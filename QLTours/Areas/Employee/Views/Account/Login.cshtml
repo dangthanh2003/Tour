@@ -1,0 +1,27 @@
+﻿@model QLTours.Models.User
+
+<div style="display: flex; justify-content: center; align-items: center; ">
+    <div>
+
+       
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label asp-for="Email">Email:</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-dark"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password">Password:</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-dark"></span>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn" style="background-color: #00D8FF;">
+                    Login
+                </button>
+            </div>
+            <p>Don't have account ?<a asp-controller="Home" asp-action="Register">Register NOW !!</a></p>
+            <div asp-validation-summary="All" class="text-dark"></div>
+        </form>
+    </div>
+</div>

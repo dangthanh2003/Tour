@@ -1,0 +1,61 @@
+﻿@model QLTours.Models.TourDetail
+
+@{
+    ViewData["Title"] = "Edit Tour Detail";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h3 class="card-title">Chỉnh Sửa Tour Chi Tiết</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" class="needs-validation" novalidate>
+                <input type="hidden" asp-for="TourDetailId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Dropdown chọn Tour -->
+                <div class="form-floating mb-3">
+                    <select asp-for="TourId" class="form-control" asp-items="ViewBag.TourId">
+                        <option value="">-- Chọn Tour --</option>
+                    </select>
+                    <label asp-for="TourId">Tour</label>
+                </div>
+
+                <!-- Dropdown chọn Phương Tiện -->
+                <div class="form-floating mb-3">
+                    <select asp-for="VehicleId" class="form-control" asp-items="ViewBag.VehicleId">
+                        <option value="">-- Chọn Phương Tiện --</option>
+                    </select>
+                    <label asp-for="VehicleId">Phương Tiện</label>
+                </div>
+
+                <!-- Dropdown chọn Khách Sạn -->
+                <div class="form-floating mb-3">
+                    <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId">
+                        <option value="">-- Chọn Khách Sạn --</option>
+                    </select>
+                    <label asp-for="HotelId">Khách Sạn</label>
+                </div>
+
+                
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Lưu
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

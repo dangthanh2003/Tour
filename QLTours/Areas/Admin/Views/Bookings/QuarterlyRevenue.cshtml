@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    // Ép kiểu ViewBag.RevenueByQuarter về List<RevenueData>
+    var revenueByQuarter = ViewBag.RevenueByQuarter as List<QLTours.Areas.Admin.Models.RevenueData>;
+
+    // Tính tổng doanh thu để tính phần trăm
+    var totalRevenue = revenueByQuarter.Sum(x => x.TotalRevenue);
+
+    // Tính phần trăm doanh thu cho từng quý
+    var revenuePercentages = revenueByQuarter.Select(x => (x.TotalRevenue / totalRevenue) * 100).ToList();
+}
+
+<h1>Thống kê doanh thu các quý</h1>
+
+<style>
+    #revenuePieChart {
+        width: 850px !important;
+        height: 850px !important;
+    }
+</style>
+
+<canvas id="revenuePieChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script>
+    var ctx = document.getElementById('revenuePieChart').getContext('2d');
+
+    // Chuyển đổi dữ liệu thành chuỗi JSON để sử dụng trong JavaScript
+    var labels = @Html.Raw(Json.Serialize(revenueByQuarter.Select(x => x.Quarter)));
+    var revenueData = @Html.Raw(Json.Serialize(revenueByQuarter.Select(x => x.TotalRevenue)));
+    var revenuePercentages = @Html.Raw(Json.Serialize(revenuePercentages)); // Phần trăm
+
+    var data = {
+        labels: labels,
+        datasets: [{
+            label: 'Total Revenue',
+            data: revenueData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    var options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Total Revenue by Quarter'
+            },
+            datalabels: {
+                formatter: function (value, context) {
+                    var percentage = revenuePercentages[context.dataIndex];
+                    return percentage.toFixed(2) + '%';
+                },
+                color: '#000',  
+                font: {
+                    weight: 'bold',
+                    size: 16 
+                },
+                borderColor: '#fff',  // Đường viền trắng bao quanh chữ
+                borderWidth: 2,  // Độ dày đường viền
+                anchor: 'end',
+                align: 'start',
+                offset: 10
+            }
+        }
+    };
+
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: options,
+        plugins: [ChartDataLabels]  // Kích hoạt plugin datalabels
+    });
+</script>

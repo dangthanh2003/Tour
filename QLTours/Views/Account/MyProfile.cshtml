@@ -1,0 +1,126 @@
+﻿@model QLTours.Models.UserProfileViewModel
+
+<h2 class="text-center mb-4 text-primary">Hồ Sơ Của Tôi</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">
+        @ViewBag.Message
+    </div>
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <form asp-action="MyProfile" method="post" class="custom-form">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <!-- Tên người dùng -->
+                        <div class="form-group mb-3">
+                            <label for="Username" class="form-label">Tên người dùng</label>
+                            <input type="text" class="form-control custom-input" id="Username" name="Username" value="@Model.Username" required />
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" class="form-control custom-input" id="Email" name="Email" value="@Model.Email" required />
+                        </div>
+
+                        <!-- Số điện thoại -->
+                        <div class="form-group mb-3">
+                            <label for="Phone" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control custom-input" id="Phone" name="Phone" value="@Model.Phone" required />
+                        </div>
+
+                        <!-- Ngày sinh -->
+                        <div class="form-group mb-3">
+                            <label for="DateOfBirth" class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control custom-input" id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth?.ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <!-- Địa chỉ -->
+                        <div class="form-group mb-3">
+                            <label for="Address" class="form-label">Địa chỉ</label>
+                            <textarea class="form-control custom-input" id="Address" name="Address" rows="4">@Model.Address</textarea>
+                        </div>
+
+                        <!-- Nút hành động -->
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <button type="submit" class="btn custom-btn">Lưu</button>
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary custom-btn">Hủy</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom Styles for User Profile Form */
+    .custom-form {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .custom-card {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        background-color: #ffffff;
+    }
+
+    .custom-input {
+        font-size: 16px;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: #f1f3f5;
+        border: 1px solid #ddd;
+        transition: all 0.3s ease;
+    }
+
+        .custom-input:focus {
+            background-color: #fff;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+    .custom-btn {
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-transform: uppercase;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+        .custom-btn:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        .custom-btn:focus {
+            outline: none;
+        }
+
+    /* Label Styling */
+    .form-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    /* Error and Success Message Styling */
+    .alert-info {
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+        border-radius: 5px;
+        padding: 15px;
+    }
+</style>

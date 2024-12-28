@@ -1,0 +1,58 @@
+﻿@model IEnumerable<QLTours.Models.Hotel>
+
+@{
+    ViewData["Title"] = "Danh Sách Khách Sạn";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Danh Sách Khách Sạn</h3>
+        </div>
+        <div class="card-body">
+            <p>
+                <a class="btn btn-success" asp-action="Create">
+                    <i class="bi bi-plus-circle"></i> Thêm Khách Sạn Mới
+                </a>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.HotelName)</th>
+                            <th>@Html.DisplayNameFor(model => model.Description)</th>
+                            <th>@Html.DisplayNameFor(model => model.Address)</th>
+                            <th class="text-center">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.HotelName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.HotelId">
+                                        <i class="bi bi-pencil-square"></i> Sửa
+                                    </a>
+                                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.HotelId">
+                                        <i class="bi bi-eye"></i> Chi Tiết
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.HotelId" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-muted text-center">
+            Tổng số: @Model.Count() khách sạn
+        </div>
+    </div>
+</div>

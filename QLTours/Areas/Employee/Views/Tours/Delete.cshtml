@@ -1,0 +1,64 @@
+﻿@model QLTours.Models.Tour
+
+@{
+    ViewData["Title"] = "Xóa Tour";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title text-center">Xác Nhận Xóa Tour</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-center text-danger fw-bold">Bạn có chắc chắn muốn xóa tour này?</p>
+
+            <dl class="row">
+                <dt class="col-sm-3">Tên Tour</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TourName)</dd>
+
+                <dt class="col-sm-3">Mô Tả</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-3">Giá</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Price) VND</dd>
+
+                <dt class="col-sm-3">Số Lượng</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Quantity)</dd>
+
+                <dt class="col-sm-3">Ngày Bắt Đầu</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.StartDate)</dd>
+
+                <dt class="col-sm-3">Ngày Kết Thúc</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.EndDate)</dd>
+
+                <dt class="col-sm-3">Hình Ảnh</dt>
+                <dd class="col-sm-9">
+                    @if (!string.IsNullOrEmpty(Model.Img))
+                    {
+                        <img src="/images/@Model.Img" class="img-thumbnail" alt="Hình ảnh tour" style="max-height: 150px;" />
+                    }
+                    else
+                    {
+                        <span>Không có hình ảnh</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3">Danh Mục</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Category.CategoryId)</dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                <form asp-action="Delete" method="post" class="d-inline">
+                    <input type="hidden" asp-for="TourId" />
+                    <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Bạn có chắc chắn muốn xóa tour này không?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> Quay Lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

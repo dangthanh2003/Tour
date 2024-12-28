@@ -1,0 +1,8 @@
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.csproj.AssemblyReference.cache
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.AssemblyInfoInputs.cache
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.AssemblyInfo.cs
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.csproj.CoreCompileInputs.cache
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.RazorAssemblyInfo.cache
+C:\Users\WINDOWS\Desktop\Tour\Tour\obj\Debug\net6.0\Tours.RazorAssemblyInfo.cs

@@ -1,0 +1,183 @@
+﻿<style>
+	.filtr-item {
+		width: 100%; /* Đặt chiều rộng đầy đủ cho mỗi ảnh */
+		height: 350px; /* Đặt chiều cao cố định cho ảnh */
+		overflow: hidden; /* Cắt ảnh nếu chúng lớn hơn chiều cao */
+		margin-bottom: 20px; /* Khoảng cách giữa các ảnh */
+	}
+
+		.filtr-item img {
+			width: 100%; /* Đặt chiều rộng tối đa cho ảnh */
+			height: 100%; /* Đặt chiều cao tối đa cho ảnh */
+			object-fit: cover; /* Cắt ảnh để phù hợp với khung mà không bị méo */
+			display: block; /* Đảm bảo không có khoảng trắng dưới ảnh */
+		}
+</style>
+@{
+    var message = TempData["Message"] as string;
+    if (!string.IsNullOrEmpty(message))
+    {
+        <div class="alert alert-success">
+            @message
+        </div>
+    }
+}
+
+@model List<QLTours.Models.Tour>
+<script src="https://cdn.jsdelivr.net/npm/luxon/build/global/luxon.min.js"></script>
+
+<!--about-us start -->
+<section id="home" class="about-us">
+<div class="container">
+    <div class="about-us-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="single-about-us">
+                    <div class="about-us-txt">
+                        <h2>
+                            Khám phá vẻ đẹp của thế giới
+
+                        </h2>
+
+                    </div><!--/.about-us-txt-->
+                </div><!--/.single-about-us-->
+            </div><!--/.col-->
+            <div class="col-sm-0">
+                <div class="single-about-us">
+                </div><!--/.single-about-us-->
+            </div><!--/.col-->
+        </div><!--/.row-->
+    </div><!--/.about-us-content-->
+</div><!--/.container-->
+
+</section><!--/.about-us-->
+<!--about-us end -->
+
+<!--service start-->
+<section id="service" class="service">
+	<div class="container">
+
+		<div class="service-counter text-center">
+
+			<div class="col-md-4 col-sm-4">
+				<div class="single-service-box">
+					<div class="service-img">
+						<img src="~/images/service/s1.png" alt="service-icon" />
+					</div><!--/.service-img-->
+					<div class="service-content">
+						<h2>
+							<a href="#">
+								Các gói khuyến mãi đa dạng
+							</a>
+						</h2>
+
+					</div><!--/.service-content-->
+				</div><!--/.single-service-box-->
+			</div><!--/.col-->
+
+			<div class="col-md-4 col-sm-4">
+				<div class="single-service-box">
+					<div class="service-img">
+						<img src="~/images/service/s2.png" alt="service-icon" />
+					</div><!--/.service-img-->
+					<div class="service-content">
+						<h2>
+							<a href="#">
+								Thành phố tuyệt vời
+							</a>
+						</h2>
+					</div><!--/.service-content-->
+				</div><!--/.single-service-box-->
+			</div><!--/.col-->
+
+			<div class="col-md-4 col-sm-4">
+				<div class="single-service-box">
+					<div class="statistics-img">
+						<img src="~/images/service/s3.png" alt="service-icon" />
+					</div><!--/.service-img-->
+					<div class="service-content">
+
+						<h2>
+							<a href="#">
+								Chuyến đi đáng nhớ
+							</a>
+						</h2>
+					</div><!--/.service-content-->
+				</div><!--/.single-service-box-->
+			</div><!--/.col-->
+
+		</div><!--/.statistics-counter-->
+	</div><!--/.container-->
+
+</section><!--/.service-->
+<!--service end-->
+<!--galley start-->
+<section id="gallery" class="gallery">
+	<div class="container">
+		<div class="gallery-details">
+			<div class="gallary-header text-center">
+				<h2>
+					Chuyến đi nổi bật
+				</h2>
+
+			</div><!--/.gallery-header-->
+			<div class="gallery-box">
+				<div class="gallery-content">
+					<div class="filtr-container">
+						<div class="row">
+							 @foreach (var item in Model)
+                        {
+							<div class="col-md-6">
+								<div class="filtr-item">
+										<img src="/images/@item.Img" alt="Tour Image">
+									<div class="item-title">
+											<a asp-action="TourDetail" asp-route-id="@item.TourId">
+											@item.TourName
+										</a>
+										
+									</div><!-- /.item-title -->
+								</div><!-- /.filtr-item -->
+							</div><!-- /.col -->
+						}
+							
+						</div><!-- /.row -->
+
+					</div><!-- /.filtr-container-->
+				</div><!-- /.gallery-content -->
+			</div><!--/.galley-box-->
+		</div><!--/.gallery-details-->
+	</div><!--/.container-->
+
+</section><!--/.gallery-->
+<!--gallery end-->
+<!--discount-offer start-->
+<section class="discount-offer">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="dicount-offer-content text-center">
+					<h2>Đặt ngay để được giá tốt nhất</h2>
+					<div class="campaign-timer">
+						<div id="timer">
+							<div class="time" id="days"></div>
+							<div class="time" id="hours"></div>
+							<div class="time" id="minutes"></div>
+							<div class="time" id="seconds"></div>
+						</div>
+					</div>
+					<div class="about-btn">
+						<form asp-action="List" asp-controller="Home" method="post">
+							<button type="submit" class="about-view discount-offer-btn">
+								Đặt ngay
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+
+

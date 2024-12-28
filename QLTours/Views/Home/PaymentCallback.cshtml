@@ -1,0 +1,32 @@
+﻿@model PaymentResponseModel
+
+@{
+    ViewData["Title"] = "Thông Tin Thanh Toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Thông Tin Thanh Toán</h2>
+
+    <div class="card">
+        <div class="card-body">
+            @if (Model != null)
+            {
+                <h5 class="card-title">Thông Tin Thanh Toán</h5>
+                <ul class="list-group list-group-flush">
+                    
+                    <li class="list-group-item">Mã giao dịch: @Model.TransactionId</li>
+                    <li class="list-group-item">Mã đơn hàng: @Model.OrderId</li>
+                    <li class="list-group-item">Phương thức thanh toán: @Model.PaymentMethod</li>
+                    <!-- Bổ sung các thông tin khác từ model PaymentResponseModel cần hiển thị -->
+                </ul>
+            }
+            else
+            {
+                <p>Không có thông tin thanh toán.</p>
+            }
+        </div>
+    </div>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-3">Quay về Trang Chủ</a>
+</div>

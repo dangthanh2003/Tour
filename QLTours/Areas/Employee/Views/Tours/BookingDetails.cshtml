@@ -1,0 +1,25 @@
+﻿@model QLTours.Models.Tour
+
+<h1>Booking Details for @Model.TourName</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <!-- Add more fields if needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model.Bookings)
+        {
+            <tr>
+                <td>@booking.UserId</td>
+                <td>@booking.User.Username</td>
+                <td>@booking.User.Email</td>
+                <!-- Add more fields if needed -->
+            </tr>
+        }
+    </tbody>
+</table>

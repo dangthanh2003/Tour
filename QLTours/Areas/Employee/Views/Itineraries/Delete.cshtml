@@ -1,0 +1,55 @@
+﻿@model QLTours.Models.Itinerary
+
+@{
+    ViewData["Title"] = "Xóa Lịch Trình";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title text-center">Xác Nhận Xóa Lịch Trình</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-center text-danger fw-bold">Bạn có chắc chắn muốn xóa lịch trình này?</p>
+
+            <dl class="row">
+                <!-- Ngày -->
+                <dt class="col-sm-3">Ngày</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Ngay)</dd>
+
+                <!-- Chi Tiết Lịch Trình -->
+                <dt class="col-sm-3">Chi Tiết</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.ChiTietLichTrinh)</dd>
+
+                <!-- Tên Tour -->
+                <dt class="col-sm-3">Tên Tour</dt>
+                <dd class="col-sm-9">
+                    @if (Model.Tour != null)
+                    {
+                        @Html.DisplayFor(model => model.Tour.TourName)
+                    }
+                    else
+                    {
+                        <span>Không xác định</span>
+                    }
+                </dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                <!-- Form Xóa -->
+                <form asp-action="Delete" method="post" class="d-inline">
+                    <input type="hidden" asp-for="ItineraryId" />
+                    <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Bạn có chắc chắn muốn xóa lịch trình này không?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </form>
+
+                <!-- Quay Lại -->
+                <a asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> Quay Lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

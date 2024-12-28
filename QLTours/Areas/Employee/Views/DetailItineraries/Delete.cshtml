@@ -1,0 +1,41 @@
+﻿@model QLTours.Models.DetailItinerary
+
+@{
+    ViewData["Title"] = "Xóa Detail Itinerary";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title">Xóa Detail Itinerary</h3>
+        </div>
+        <div class="card-body">
+            <p>Bạn có chắc chắn muốn xóa chi tiết lịch trình sau?</p>
+            <dl class="row">
+                <dt class="col-sm-3">Thời Gian</dt>
+                <dd class="col-sm-9">@Model.ThoiGian</dd>
+
+                <dt class="col-sm-3">Hoạt Động</dt>
+                <dd class="col-sm-9">@Model.HoatDong</dd>
+
+                <dt class="col-sm-3">Mô Tả</dt>
+                <dd class="col-sm-9">@Model.MoTa</dd>
+
+                <dt class="col-sm-3">Lịch Trình</dt>
+                <dd class="col-sm-9">@Model.Itinerary.ItineraryId</dd>
+            </dl>
+            <div class="text-center mt-4">
+                <form asp-action="Delete" method="post" class="d-inline">
+                    <input type="hidden" asp-for="DetailId" />
+                    <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Bạn có chắc chắn muốn xóa chi tiết này không?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> Quay Lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

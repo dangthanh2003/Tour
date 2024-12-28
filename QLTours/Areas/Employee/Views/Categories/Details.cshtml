@@ -1,0 +1,31 @@
+﻿@model QLTours.Models.Category
+
+@{
+    ViewData["Title"] = "Chi tiết Category";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h3 class="card-title">Chi tiết Category</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Tên Category</dt>
+                <dd class="col-sm-9">@Model.CategoryName</dd>
+
+                <dt class="col-sm-3">Mô Tả</dt>
+                <dd class="col-sm-9">@Model.Description</dd>
+            </dl>
+            <div class="text-center">
+                <a asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-warning">
+                    <i class="bi bi-pencil-square"></i> Sửa
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Quay lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

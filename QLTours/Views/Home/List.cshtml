@@ -1,0 +1,285 @@
+﻿@model IEnumerable<Tour>
+<style>
+	/* CSS */
+	.yellow-star {
+		color: #f8ce0b; /* Màu sắc mong muốn cho ngôi sao */
+	}
+
+	.travel-box {
+		background-image: url("/images/ban.jpg");
+	}
+
+	.single-package-item img {
+		width: 100%; /* Chiều rộng đầy đủ của container */
+		height: 200px; /* Đặt chiều cao cố định cho ảnh */
+		object-fit: cover; /* Giúp hình ảnh phù hợp với khung mà không bị méo */
+		border-radius: 8px; /* Tùy chọn: bo tròn góc */
+		margin-bottom: 15px; /* Khoảng cách giữa ảnh và nội dung dưới */
+	}
+
+	.single-package-item {
+		text-align: center; /* Căn giữa nội dung */
+	}
+</style>
+<section class="travel-box">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="single-travel-boxes" style="margin-top: 150px !important;">
+
+					<div class="gallary-header text-center">
+						<h2>
+							Tìm Nhanh
+						</h2>
+					</div>
+					<div id="desc-tabs" class="desc-tabs">
+
+						<ul class="nav nav-tabs" role="tablist">
+
+							<li role="presentation" class="active">
+								<a href="#tours" aria-controls="tours" role="tab" data-toggle="tab">
+									<i class="fa fa-tree"></i>
+									Chuyến du lịch
+								</a>
+							</li>
+						</ul>
+
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active fade-in" id="tours">
+								<div class="tab-para">
+									<form method="get" action="@Url.Action("Search", "Home")">
+										<div class="row">
+											<div class="col-lg-3 col-md-4 col-sm-12">
+												<div class="single-tab-select-box">
+													<h2>Tìm địa điểm</h2>
+													<input class="form-control" type="text" id="tourName" name="tourName" style="height: 49px;font-size: 16px;">
+												</div>
+											</div>
+
+											<div class="col-lg-2  col-sm-4">
+												<div class="single-tab-select-box">
+													<h2>Check in</h2>
+													<div class="travel-check-icon">
+														<input type="date" name="startDate" class="form-control" placeholder="Ngày bắt đầu">
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg-2 col-sm-4">
+												<div class="single-tab-select-box">
+													<h2>Check out</h2>
+													<div class="travel-check-icon">
+														<input type="date" name="endDate" class="form-control" placeholder="Ngày kết thúc">
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-sm-4">
+												<div class="single-tab-select-box">
+													<h2>Danh Mục</h2>
+													<select id="categoryId" name="categoryId" class="form-control" style="height: 49px; font-size: 16px;">
+														<option value="">Tất cả</option>
+														@if (ViewBag.Categories != null)
+														{
+															foreach (var item in ViewBag.Categories)
+															{
+																<option value="@item.Value">@item.Text</option>
+															}
+														}
+														else
+														{
+															<option value="">Không có danh mục nào</option>
+														}
+													</select>
+												</div>
+											</div>
+
+											<div class="col-lg-3  col-sm-4">
+												<div class="about-btn  pull-right">
+													<button class="about-view travel-btn">Tìm kiếm</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div><!--/.tab-para-->
+							</div><!--/.tabpannel-->
+						</div><!--/.tab content-->
+					</div><!--/.desc-tabs-->
+				</div><!--/.single-travel-box-->
+			</div><!--/.col-->
+		</div><!--/.row-->
+	</div><!--/.container-->
+</section><!--/.travel-box-->
+<!--travel-box end-->
+<!--packages start-->
+<section id="pack" class="packages">
+	<div class="container">
+		<div class="gallary-header text-center">
+			<h2>
+				Danh Sách Tour
+			</h2>
+		</div><!--/.gallery-header-->
+		<div class="packages-content">
+			<div class="row">
+				<!-- Loop through each tour and display information -->
+				@foreach (var tour in Model)
+				{
+					<div class="col-md-4 col-sm-6">
+						<div class="single-package-item">
+							<!-- You can use the image URL from your tour data -->
+							<img src="/images/@tour.Img" alt="Tour Image">
+							<div class="single-package-item-txt">
+								<h3>@tour.TourName <span class="pull-right">$@tour.Price</span></h3>
+								<!-- Tính toán số sao trung bình từ đánh giá -->
+								@{
+									double averageRating = 0.0;
+									if (tour.Reviews.Any())
+									{
+										averageRating = tour.Reviews.Average(r => (double?)r.Rating) ?? 0.0;
+									}
+									string starIcons = GetStarIcons(averageRating);
+								}
+								<p>@Html.Raw(starIcons)</p>
+								<p>Ngày bắt đầu : @Html.DisplayFor(modelItem => tour.StartDate)</p>
+								<p>Ngày kết thúc : @Html.DisplayFor(modelItem => tour.EndDate)</p>
+								<p><i class="fa-solid fa-hotel"></i>: @tour.TourDetails.FirstOrDefault()?.Hotel?.HotelName</p>
+								<p>Phương tiện: @tour.TourDetails.FirstOrDefault()?.Vehicle?.VehicleName</p>
+
+								<div class="packages-para">
+									<p>
+										<span>
+											<i class="fa fa-angle-right"></i>Số lượng vé  @tour.Quantity
+										</span>
+									</p>
+								</div><!--/.packages-para-->
+								<div class="about-btn">
+									<!-- You can add a link to view details or book the tour -->
+									<a asp-action="TourDetail" asp-route-id="@tour.TourId" class="about-view packages-btn">
+										Đặt ngay
+									</a>
+
+								</div><!--/.about-btn-->
+							</div><!--/.single-package-item-txt-->
+						</div><!--/.single-package-item-->
+					</div>
+
+					<!--/.col-->
+				}
+			</div><!--/.row-->
+		</div><!--/.packages-content-->
+		<!-- Thêm phần hiển thị phân trang -->
+		@{
+			int pageLimit = 5;  // Giới hạn số trang hiển thị
+		}
+		<div class="pagination-container" style="display: flex; justify-content: center;">
+			<ul class="pagination">
+				<!-- Nút Trang đầu -->
+				@if (ViewBag.CurrentPage > 1)
+				{
+					<li><a href="@Url.Action("List", new { page = 1 })">|« </a></li>
+				}
+				else
+				{
+					<li class="disabled"><span> |« </span></li>
+				}
+				<!-- Nút Previous -->
+				@if (ViewBag.CurrentPage > 1)
+				{
+					<li><a href="@Url.Action("List", new { page = ViewBag.CurrentPage - 1 })"> « </a></li>
+				}
+				else
+				{
+					<li class="disabled"><span> « </span></li>
+				}
+				<!-- Hiển thị các trang với dấu ba chấm nếu cần -->
+				@if (ViewBag.TotalPages > pageLimit)
+				{
+					<!-- Trang đầu -->
+					<li class="@(ViewBag.CurrentPage == 1 ? "active" : "")">
+						<a href="@Url.Action("List", new { page = 1 })">1</a>
+					</li>
+					<!-- Dấu ba chấm nếu có nhiều trang ở giữa -->
+					@if (ViewBag.CurrentPage > 3)
+					{
+						<li class="disabled"><span>...</span></li>
+					}
+					<!-- Hiển thị các trang gần trang hiện tại -->
+					@for (int i = ViewBag.CurrentPage - 1; i <= ViewBag.CurrentPage + 1; i++)
+					{
+						if (i > 1 && i < ViewBag.TotalPages) // Chỉ hiển thị trang hợp lệ
+						{
+							<li class="@(i == ViewBag.CurrentPage ? "active" : "")">
+								<a href="@Url.Action("List", new { page = i })">@i</a>
+							</li>
+						}
+					}
+					<!-- Dấu ba chấm nếu có nhiều trang ở sau -->
+					@if (ViewBag.CurrentPage < ViewBag.TotalPages - 2)
+					{
+						<li class="disabled"><span>...</span></li>
+					}
+					<!-- Trang cuối -->
+					<li class="@(ViewBag.CurrentPage == ViewBag.TotalPages ? "active" : "")">
+						<a href="@Url.Action("List", new { page = ViewBag.TotalPages })">@ViewBag.TotalPages</a>
+					</li>
+				}
+				else
+				{
+					<!-- Nếu số trang ít, hiển thị tất cả -->
+					@for (int i = 1; i <= ViewBag.TotalPages; i++)
+					{
+						<li class="@(i == ViewBag.CurrentPage ? "active" : "")">
+							<a href="@Url.Action("List", new { page = i })">@i</a>
+						</li>
+					}
+				}
+				<!-- Nút Next -->
+				@if (ViewBag.CurrentPage < ViewBag.TotalPages)
+				{
+					<li><a href="@Url.Action("List", new { page = ViewBag.CurrentPage + 1 })"> » </a></li>
+				}
+				else
+				{
+					<li class="disabled"><span> » </span></li>
+				}
+				<!-- Nút Trang cuối -->
+				@if (ViewBag.CurrentPage < ViewBag.TotalPages)
+				{
+					<li><a href="@Url.Action("List", new { page = ViewBag.TotalPages })"> »| </a></li>
+				}
+				else
+				{
+					<li class="disabled"><span> »| </span></li>
+				}
+			</ul>
+			<!-- Ô nhập số trang và nút đi -->
+			<form method="get" action="@Url.Action("List")" style="display: flex; align-items: center; margin-left: 15px;">
+				<input type="number" name="page" min="1" max="@ViewBag.TotalPages" value="@ViewBag.CurrentPage" class="form-control" style="width: 40px; height: 30px;" />
+				<button type="submit" class="btn btn-primary" style="margin-left: 5px;">Đi</button>
+			</form>
+		</div>
+		<!-- Thêm phần hiển thị phân trang -->
+	</div><!--/.container-->
+</section><!--/.packages-->
+<!--packages end-->
+@functions {
+	string GetStarIcons(double rating)
+	{
+		string starIcons = "";
+		int numberOfFullStars = (int)rating;
+		for (int i = 0; i < numberOfFullStars; i++)
+		{
+			starIcons += "<i class='fa fa-star yellow-star'></i>"; // Thêm class yellow-star vào đây
+		}
+
+		double remainder = rating - numberOfFullStars;
+		if (remainder >= 0.5)
+		{
+			starIcons += "<i class='fa fa-star-half yellow-star'></i>"; // Thêm class yellow-star vào đây
+		}
+
+		return starIcons;
+	}
+
+}

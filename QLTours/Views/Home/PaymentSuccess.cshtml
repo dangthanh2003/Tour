@@ -1,0 +1,16 @@
+﻿@model QLTours.Models.PaymentResponseModel
+
+@{
+    ViewData["Title"] = "Thanh toán thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Giả sử bạn có layout chung
+}
+
+<div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Thanh toán thành công!</h4>
+        <p>Cảm ơn bạn đã thanh toán. Đơn đặt tour của bạn đã được xác nhận.</p>
+       
+    </div>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về Trang chủ</a>
+</div>

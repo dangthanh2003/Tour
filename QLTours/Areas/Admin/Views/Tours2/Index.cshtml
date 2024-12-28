@@ -1,0 +1,114 @@
+﻿@model IEnumerable<QLTours.Models.Tour>
+
+@{
+    ViewData["Title"] = "Danh Sách Tour";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Danh Sách Tour</h3>
+        </div>
+        <div class="card-body">
+            <!-- Thanh tìm kiếm -->
+            <div class="mb-4">
+                <form method="get" asp-action="Index" class="d-flex align-items-center">
+                    <!-- Thêm biểu tượng tìm kiếm bên trong input -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên tour..." value="@Context.Request.Query["search"]" />
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-search"></i> Tìm kiếm
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            <p>
+                <a asp-action="Create" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Thêm Tour Mới
+                </a>
+            </p>
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.TourName)</th>
+                        <th>Mô Tả</th>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                        <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                        <th>Ảnh</th>
+                        <th>@Html.DisplayNameFor(model => model.Category.CategoryName)</th>
+                        <th class="text-center">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.TourName)</td>
+                            <td>
+                                @{
+                                    //string description = item.Description;
+                                    string description = item.Description ?? "";
+                                    string[] words = description.Split(' ');
+                                    if (words.Length > 10)
+                                    {
+                                        description = string.Join(" ", words.Take(10)) + "...";
+                                    }
+                                }
+                                @description
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                            <td>
+                                <img src="/images/@item.Img" alt="Ảnh Tour" class="img-thumbnail" style="max-width: 100px;">
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.Category.CategoryName)</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.TourId" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.TourId" class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i> Chi Tiết
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.TourId" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <!-- Thanh phân trang -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(ViewBag.CurrentPage <= 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)">Trước</a>
+                    </li>
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(ViewBag.CurrentPage >= ViewBag.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)">Tiếp</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="card-footer text-muted text-center">
+            Tổng số: @Model.Count() tours
+        </div>
+    </div>
+</div>
+        
+

@@ -1,0 +1,34 @@
+﻿@model QLTours.Models.TourDetail
+
+@{
+    ViewData["Title"] = "Tour Details";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h3 class="card-title">Chi Tiết Tour</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4 fw-bold">Tên Tour</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Tour.TourName)</dd>
+
+                <dt class="col-sm-4 fw-bold">Phương Tiện</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Vehicle.VehicleName)</dd>
+
+                <dt class="col-sm-4 fw-bold">Khách Sạn</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Hotel.HotelName)</dd>
+            </dl>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Edit" asp-route-id="@Model.TourDetailId" class="btn btn-primary">
+                <i class="bi bi-pencil-square"></i> Chỉnh sửa
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại danh sách
+            </a>
+        </div>
+    </div>
+</div>

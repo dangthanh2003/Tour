@@ -1,0 +1,113 @@
+﻿@model QLTours.Models.User
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Jost', sans-serif;
+    }
+
+    .container2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #7fbac5;
+    }
+
+    .register-container {
+        display: flex;
+        width: 80%;
+        max-width: 800px;
+        background-color: #2a545b;
+        border-radius: 10px;
+        box-shadow: 5px 20px 50px #000;
+        overflow: hidden;
+        margin-bottom: 100px;
+        margin-top: 100px;
+    }
+
+    .register-image {
+        width: 40%;
+        background: url('/Adminassets/images/mn.jpg') center/cover no-repeat;
+    }
+
+    .register-form {
+        width: 60%;
+        padding: 40px;
+        box-sizing: border-box;
+        color: #fff;
+    }
+
+    label {
+        font-size: 2.3em;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        width: 100%;
+        height: 40px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        background-color: #e0dede;
+        color: #000;
+        font-size: 1em;
+    }
+
+    .button2 {
+        width: 100%;
+        height: 40px;
+        margin-top: 20px;
+        font-size: 1em;
+        font-weight: bold;
+        color: #fff;
+        background-color: #378996;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        .button2:hover {
+            background-color: #6d44b8;
+        }
+</style>
+
+<div class="container2">
+    <div class="register-container">
+        <div class="register-image"></div>
+        <div class="register-form">
+            <label>Đăng ký</label>
+            <form asp-action="Register" method="post">
+                <div class="form-group">
+                    <input asp-for="Username" placeholder="Tên đăng nhập" class="form-control">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Phone" placeholder="Số điện thoại" class="form-control">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Email" placeholder="Email" class="form-control">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Password" placeholder="Mật khẩu" type="password" class="form-control">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <!-- ConfirmPassword without binding to the model -->
+                <div class="form-group">
+                    <input name="ConfirmPassword" placeholder="Xác nhận mật khẩu" type="password" class="form-control">
+                    <span class="text-danger">@ViewData["ConfirmPasswordError"]</span>
+                </div>
+
+                <button type="submit" class="button2">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+</div>

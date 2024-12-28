@@ -1,0 +1,40 @@
+﻿@model QLTours.Models.TourDetail
+
+@{
+    ViewData["Title"] = "Delete Tour Detail";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h3 class="card-title">Xóa Tour Chi Tiết</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="text-danger">Bạn có chắc chắn muốn xóa thông tin này không?</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">Tour</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Tour.TourName)</dd>
+
+                <dt class="col-sm-4">Phương Tiện</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Vehicle.VehicleName)</dd>
+
+                <dt class="col-sm-4">Khách Sạn</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Hotel.HotelName)</dd>
+            </dl>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="TourDetailId" />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa?');">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

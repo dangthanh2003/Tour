@@ -1,0 +1,55 @@
+﻿@model IEnumerable<QLTours.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Danh Sách Phương Tiện";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">Danh Sách Phương Tiện</h3>
+        </div>
+        <div class="card-body">
+            <p>
+                <a class="btn btn-success" asp-action="Create">
+                    <i class="bi bi-plus-circle"></i> Tạo Phương Tiện Mới
+                </a>
+            </p>
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.VehicleName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Description)</th>
+                        <th class="text-center">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.VehicleName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.VehicleId">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.VehicleId">
+                                    <i class="bi bi-eye"></i> Xem
+                                </a>
+                                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.VehicleId">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted text-center">
+            Tổng số: @Model.Count() phương tiện
+        </div>
+    </div>
+</div>

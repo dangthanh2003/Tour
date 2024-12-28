@@ -1,0 +1,254 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Travel</title>
+    <!--font-family-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900">
+
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+    <!-- favicon img -->
+    @*   <link rel="shortcut icon" type="image/icon" href="~/logo/favicon.png" />*@
+
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+
+    <!--animate.css-->
+    <link rel="stylesheet" href="~/css/animate.css" />
+
+    <!--hover.css-->
+    <link rel="stylesheet" href="~/css/hover-min.css">
+
+    <!--datepicker.css-->
+    <link rel="stylesheet" href="~/css/datepicker.css">
+
+    <!--owl.carousel.css-->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" />
+
+    <!-- range css-->
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="~/css/bootsnav.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+
+
+    <!--responsive.css-->
+    <link rel="stylesheet" href="~/css/responsive.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--style.css-->
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/style1.css" />
+
+</head>
+<body>
+    <!-- main-menu Start -->
+    <header class="top-area">
+        <div class="header-area" style="    background: rgba(77,78,84,1);
+">
+            <div class="container">
+                <div class="row">
+                    <div style="padding-top: 25px" class="col-sm-2">
+                        <div class="logo">
+                            <a asp-action="Index" asp-controller="Home">
+                                Travel<span> Việt Nam </span>
+                            </a>
+                        </div><!-- /.logo-->
+                    </div><!-- /.col-->
+                    <div class="col-sm-10">
+                        <div class="main-menu">
+                            <div class="navbar-collapse">
+                                <ul class="nav navbar-right">
+                                    <!-- Các mục menu luôn hiển thị -->
+                                    <li><a asp-action="Index" asp-controller="Home">Trang chủ</a></li>
+                                    <li><a asp-action="BookingDetails" asp-controller="Home">Vé</a></li>
+                                    <li><a asp-action="Promotions" asp-controller="Home">Mã Khuyến Mãi</a></li>
+                                    <li><a asp-action="SendMessage" asp-controller="Home">Liên Hệ</a></li>
+
+                                    @* Kiểm tra trạng thái đăng nhập *@
+                                    @{
+                                        var username = Context.Session.GetString("Username");
+                                        var isGoogleLogin = Context.Session.GetString("IsGoogleLogin");
+
+                                        if (!string.IsNullOrEmpty(username))
+                                        {
+                                            if (isGoogleLogin == "true")
+                                            {
+                                                // Đăng nhập qua Google, không hiển thị dropdown
+                                                <li>
+                                                    <a>@username</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="Logout" asp-controller="Home">Đăng xuất</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                            // Đăng nhập bình thường, hiển thị dropdown
+                                                <li class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        @username <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu" style="background-color: #ffffff; border: 1px solid #4caf50;">
+                                                        <li><a asp-action="MyProfile" asp-controller="Account" style="color: #000000;">Hồ sơ cá nhân</a></li>
+                                                        <li><a asp-action="ChangePassword" asp-controller="Account" style="color: #000000;">Thay đổi mật khẩu</a></li>
+                                                        <li><a asp-action="Logout" asp-controller="Home" style="color: #000000;">Đăng xuất</a></li>
+                                                    </ul>
+                                                </li>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // Chưa đăng nhập
+                                            <li><a asp-action="Login" asp-controller="Home">Đăng nhập</a></li>
+                                            <li><a asp-action="Register" asp-controller="Home">Đăng ký</a></li>
+                                        }
+                                    }
+
+                                    <!-- Nút đặt ngay -->
+                                    <li>
+                                        <form asp-action="List" asp-controller="Home" method="post">
+                                            <button type="submit" class="book-btn">
+                                                Đặt ngay
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.main-menu-->
+                    </div><!-- /.col-->
+                </div><!-- /.row -->
+            </div><!-- /.container-->
+        </div><!-- /.header-area -->
+
+    </header><!-- /.top-area-->
+    <!-- main-menu End -->
+
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- footer-copyright start -->
+    <footer class="footer-copyright">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <!-- Logo Section -->
+                    <div class="col-sm-3">
+                        <div class="single-footer-item">
+                            <div class="footer-logo">
+                                <a asp-action="Index" asp-controller="Home">
+                                    Travel<span> Việt Nam </span>
+                                </a>
+                            </div>
+                        </div><!--/.single-footer-item-->
+                    </div><!--/.col-->
+                    <!-- Link Section -->
+                    <div class="col-sm-3">
+                        <div class="single-footer-item">
+                            <h2>Liên kết</h2>
+                            <div class="single-footer-txt">
+                                <p><a href="#">Trang chủ</a></p>
+                                <p><a href="gallery">Nổi bật</a></p>
+                            </div><!--/.single-footer-txt-->
+                        </div><!--/.single-footer-item-->
+                    </div><!--/.col-->
+                    <!-- Contact Section -->
+                    <div class="col-sm-3">
+                        <div class="single-footer-item text-center">
+                            <h2 class="text-left">Liên hệ</h2>
+                            <div class="single-footer-txt text-left">
+                                <p>0988672892</p>
+                                <p style="text-transform: initial;" class="foot-email">Email: voquocthang107@gmail.com</p>
+                                <p>3/2 Hoàng Sa, Đa Kao, Quận 1, TPHCM</p>
+                            </div><!--/.single-footer-txt-->
+                        </div><!--/.single-footer-item-->
+                    </div><!--/.col-->
+                </div><!--/.row-->
+            </div><!--/.footer-content-->
+
+            <hr>
+
+            <!-- Social Media Links -->
+            <div class="foot-icons">
+                <ul class="footer-social-links list-inline list-unstyled">
+                    <li><a href="#" target="_blank" class="foot-icon-bg-1"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" target="_blank" class="foot-icon-bg-2"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#" target="_blank" class="foot-icon-bg-3"><i class="fa fa-instagram"></i></a></li>
+                </ul>
+            </div><!--/.foot-icons-->
+            <!-- Messenger and Zalo Icons -->
+            <a href="https://m.me/yourpage" target="_blank" class="messenger-icon">
+                <img style="margin-bottom:10px" src="~/images/mess.png" alt="Messenger Icon">
+                <img src="~/images/zalo.png" alt="Zalo Icon">
+            </a>
+
+            <!-- Scroll to Top Icon -->
+            <div id="scroll-Top">
+                <i class="fa fa-angle-double-up return-to-top" id="scroll-top" data-toggle="tooltip" data-placement="top" title="Back to Top" aria-hidden="true"></i>
+            </div><!--/.scroll-Top-->
+        </div><!-- /.container-->       
+
+    </footer><!-- /.footer-copyright-->
+    <!--ChatbotStart-->
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger intent="WELCOME"
+                  chat-title="Chat"
+                  agent-id="450ceda6-79aa-402c-bccb-20d01def939d"
+                  language-code="vi"></df-messenger>
+    <!--ChatbotEnd-->
+
+    <!-- footer-copyright end -->
+
+    <script src="~/js/jquery.js"></script>
+    <!--modernizr.min.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/eb5813c07b.js"
+            crossorigin="anonymous"></script>
+    <!--bootstrap.min.js-->
+    <script src="~/js/bootstrap.min.js"></script>
+
+    <!-- bootsnav js -->
+    <script src="~/js/bootsnav.js"></script>
+
+    <!-- jquery.filterizr.min.js -->
+    <script src="~/js/jquery.filterizr.min.js"></script>
+
+    <!--jquery-ui.min.js-->
+    <script src="~/js/jquery-ui.min.js"></script>
+
+    <!-- counter js -->
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <script src="~/js/waypoints.min.js"></script>
+
+    <!--owl.carousel.js-->
+    <script src="~/js/owl.carousel.min.js"></script>
+
+    <!-- jquery.sticky.js -->
+    <script src="~/js/jquery.sticky.js"></script>
+
+    <!--datepicker.js-->
+    <script src="~/js/datepicker.js"></script>
+
+    <!--Custom JS-->
+    <script src="~/js/custom.js"></script>
+
+</body>
+</html>
